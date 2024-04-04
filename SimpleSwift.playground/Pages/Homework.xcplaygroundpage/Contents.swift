@@ -26,14 +26,173 @@ print("Welcome to the UW Calculator Playground")
 //: 
 //: For this latter set of operations, it is safe to assume that `["count"]` (with no additional arguments) is 0, `["avg"]` is also 0, and `["fact"]` is 0. `["1", "fact"]` should return 1, and `["0", "fact"]` should also return 1. (Yes, 0-factorial is 1. True story.)
 //: 
+/* One of the functions takes an array of Strings, expecting each "part" of the calculation expression to be each be in its own String (such as "2" "+" "2"),
+ */
+
 func calculate(_ args: [String]) -> Int {
-    return -1
+    // edge cases, if the array has only 1 element
+    let length = args.count
+    if length == 1{
+        return 0;
+    }
+    //ADD
+     else if args.contains("+"){
+        let left = Int(args[0])! //turns the 0th element.string into an int
+        let right = Int(args[2])! //turns the second element.string into an int
+        var total = left + right
+        return total
+    }
+    //SUBTRACT
+    else if args.contains("-"){
+        let left = Int(args[0])!
+        let right = Int(args[2])!
+        var total = left - right
+        return total
+    }
+    //MULTIPLY
+    else if args.contains("*"){
+        let left = Int(args[0])!
+        let right = Int(args[2])!
+        var total = left * right
+        return total
+    }
+    //DIVIDE
+    else if args.contains("/"){
+        let left = Int(args[0])!
+        let right = Int(args[2])!
+        var total = left / right
+        return total
+    }
+    //MOD
+    else if args[1].contains("%"){
+        let left = Int(args[0])!
+        let right = Int(args[2])!
+        var total = left % right
+        return total
+    }
+    //COUNT
+    else if args.contains("count"){
+        let length = args.count // length of the array
+        var total = length - 1 // the length of the array without the last emelemt "count"
+        return total
+    }
+    //Average
+    else if args.contains("avg"){
+        var newArray = args
+        newArray.removeLast() //removes "avg" from the array
+        let intArray = newArray.map {Int($0)!} //turns the array of strings into an array of ints
+        var total = 0
+        var last = intArray.count
+        last = last - 1
+        for i in 0 ... last{ //adds up all the ints
+            total = total + intArray[i]
+        }
+        var avg = total / intArray.count
+        return avg
+    }
+    //FACTORIAL
+    else if args.contains("fact"){
+        let num = Int(args[0])!
+        if num == 1 || num == 0 { //if the number is 1 or 0 the factorial is 1
+            return 1
+        } else {
+            var total = 1
+            for i in 1 ... num{
+                total = total * i
+            }
+            return total
+        }
+    }
+    else {
+        return -1
+    }
 }
+
 
 func calculate(_ arg: String) -> Int {
-    return -1
+    if (!arg.contains(" ")){ //edge case string has no spaces so no function takes place
+        return 0
+    }
+    //ADD
+    else if arg.contains("+"){
+        var tempArray = Array(arg) //turns string into array of strings
+        let left = Int(String(tempArray[0]))! //turns element from a stringinto an int
+        let right = Int(String(tempArray[4]))!
+        var total = left + right
+        return total
+    }
+    //SUBTRACT
+    else if arg.contains("-"){
+        var tempArray = Array(arg)
+        let left = Int(String(tempArray[0]))!
+        let right = Int(String(tempArray[4]))!
+        var total = left - right
+        return total
+    }
+    //MULTIPLY
+    else if arg.contains("*"){
+        var tempArray = Array(arg)
+        let left = Int(String(tempArray[0]))!
+        let right = Int(String(tempArray[4]))!
+        var total = left * right
+        return total
+    }
+    //DIVIDE
+    else if arg.contains("/"){
+        var tempArray = Array(arg)
+        let left = Int(String(tempArray[0]))!
+        let right = Int(String(tempArray[4]))!
+        var total = left / right
+        return total
+    }
+    //MOD
+    else if arg.contains("%"){
+        var tempArray = Array(arg)
+        let left = Int(String(tempArray[0]))!
+        let right = Int(String(tempArray[4]))!
+        var total = left % right
+        return total
+    }
+    //COUNT
+    else if arg.contains("count"){
+        var tempString = arg
+        var noSpaces = Array(tempString.filter{!$0.isWhitespace }) // remove spaces and turn it into an array
+        noSpaces.removeLast(5) // remove "count"
+        let length = noSpaces.count // length of the array
+        return length
+    }
+//    //AVERAGE
+    else if arg.contains("avg"){
+        var tempString = arg
+        var noSpaces = Array(tempString.filter{!$0.isWhitespace }) // remove spaces and turn it into an array
+        noSpaces.removeLast(3) // remove "avg"
+        
+        var end = (noSpaces.count) - 1
+        var total = 0
+        for i in 0 ... end{ // loop through array and add numbers
+            total = total + Int(String(noSpaces[i]))!
+        }
+        var avg = total / noSpaces.count
+        return avg
+   }
+    //FACTORIAL
+    else if arg.contains("fact"){
+        var stringArray = Array(arg)
+        let num = Int(String(stringArray[0]))!
+        if num == 1 || num == 0 { //if the number is 1 or 0 the factorial is 1
+            return 1
+        } else {
+            var total = 1
+            for i in 1 ... num {
+                total = total * i
+            }
+            return total
+        }
+    }
+    else{
+        return -1
+    }
 }
-
 //: Below this are the test expressions/calls to verify if your code is correct.
 //:
 //: ***DO NOT MODIFY ANYTHING BELOW THIS***
